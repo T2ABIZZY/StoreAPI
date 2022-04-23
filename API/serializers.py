@@ -1,6 +1,7 @@
+from dataclasses import fields
 from decimal import Decimal
 from rest_framework import serializers
-from .models import Product, Review
+from .models import Costumer, Product, Review
 
 class Productserializer(serializers.ModelSerializer) :
     class Meta:
@@ -21,3 +22,8 @@ class ReviewSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         product_id = self.context['product_id']
         return Review.objects.create(product_id=product_id, **validated_data)
+class CostumerSerializer(serializers.ModelSerializer):
+    user_id = serializers.IntegerField()
+    class Meta:
+        model = Costumer
+        fields = ['id','user_id','phone','State']

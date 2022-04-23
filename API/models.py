@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -21,3 +22,10 @@ class Review(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     date = models.DateField(auto_now_add=True)
+
+class Costumer(models.Model):
+    phone = models.DecimalField(max_digits=9,decimal_places=0)
+    State = models.CharField(max_length=20) 
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    def __str__(self) :
+        return f'{self.user.first_name},{self.user.last_name}'

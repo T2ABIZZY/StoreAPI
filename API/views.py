@@ -3,11 +3,12 @@ from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import status
 from .filters import ProductFilter
-from .models import  Product, Review
-from .serializers import  Productserializer, ReviewSerializer
+from .models import  Product, Review,Costumer
+from .serializers import  Productserializer, ReviewSerializer,CostumerSerializer
+from rest_framework.mixins import CreateModelMixin, DestroyModelMixin, RetrieveModelMixin, UpdateModelMixin
 
 
 class ProductViewSet(ModelViewSet):
@@ -32,3 +33,8 @@ class ReviewViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'product_id': self.kwargs['product_pk']}
+
+
+class CostumerViewSet(CreateModelMixin,RetrieveModelMixin,UpdateModelMixin,GenericViewSet):
+          queryset=Costumer.objects.all()
+          serializer_class = CostumerSerializer
