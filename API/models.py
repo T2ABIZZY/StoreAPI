@@ -23,8 +23,8 @@ class Review(models.Model):
     description = models.TextField()
     date = models.DateField(auto_now_add=True)
 
-class Costumer(models.Model):
-    phone = models.DecimalField(max_digits=9,decimal_places=0)
+class Customer(models.Model):
+    phone = models.DecimalField(max_digits=9,decimal_places=0,null=True)
     State = models.CharField(max_length=20) 
     user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     def __str__(self) :

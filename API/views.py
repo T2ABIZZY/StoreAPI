@@ -4,11 +4,14 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.decorators import action
 from rest_framework import status
 from .filters import ProductFilter
-from .models import  Product, Review,Costumer
-from .serializers import  Productserializer, ReviewSerializer,CostumerSerializer
+from .models import  Product, Review,Customer
+from .serializers import  Productserializer, ReviewSerializer,CustomerSerializer
 from rest_framework.mixins import CreateModelMixin, DestroyModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.permissions import AllowAny, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly, IsAdminUser, IsAuthenticated
+from .permissions import Agencepermission
 
 
 class ProductViewSet(ModelViewSet):
@@ -35,6 +38,20 @@ class ReviewViewSet(ModelViewSet):
         return {'product_id': self.kwargs['product_pk']}
 
 
-class CostumerViewSet(CreateModelMixin,RetrieveModelMixin,UpdateModelMixin,GenericViewSet):
-          queryset=Costumer.objects.all()
-          serializer_class = CostumerSerializer
+class CustomerViewSet(ModelViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+    permission_classes = [DjangoModelPermissions]
+
+    @action(detail=False,methods=['GET','PUT'])
+    def me(self, request):
+        (customer, created) = Customer.objects.get_or_create(
+            user_id=request.user.id)
+        if request.method == 'GET':
+            serializer = CustomerSerializer(customer)
+            return Response(serializer.data)
+        elif request.method == 'PUT':
+            serializer = CustomerSerializer(customer, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
