@@ -13,11 +13,11 @@ class Product(models.Model):
         (for_rent,'for rent'),
         (for_sale,'for sale'),
     ]
-    appartement = 'APP'
-    house = 'HO'
-    industrial = 'IN'
-    commercial = 'CO'
-    Land = 'LA'
+    appartement = 'Appartement'
+    house = 'House'
+    industrial = 'Industrial'
+    commercial = 'Commercial'
+    Land = 'Land'
     categories_CHOICES = [
         (appartement, 'appartement'),
         (house, 'house'),
@@ -26,7 +26,7 @@ class Product(models.Model):
         (Land, 'Land'),
     ]
     categories = models.CharField(
-        max_length=3,
+        max_length=11,
         choices=categories_CHOICES,
         default=appartement,
     )
@@ -35,8 +35,8 @@ class Product(models.Model):
     slug = models.SlugField()
     description = models.TextField(null=True, blank=True)
     price = models.DecimalField(
-        max_digits=6,
-        decimal_places=2,
+        max_digits=9,
+        decimal_places=00,
        )
     whatfor = models.CharField(
         max_length=8,choices=for_choices, default=for_rent
