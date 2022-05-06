@@ -1,6 +1,7 @@
 from django.db.models.aggregates import Count
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
+from requests import request
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
@@ -24,6 +25,8 @@ class ProductViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'request': self.request}
+
+
 
 
 

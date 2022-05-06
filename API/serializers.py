@@ -6,11 +6,7 @@ from .models import Customer, Product, Review
 class Productserializer(serializers.ModelSerializer) :
     class Meta:
         model = Product
-        fields = ('id','title','price','price_with_discount')
-    price_with_discount = serializers.SerializerMethodField(method_name='calculate')
-
-    def calculate(self , product : Product):
-        return product.price * Decimal(0.9)
+        fields = ('id','title','price','description')
 
 
 
