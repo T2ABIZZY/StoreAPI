@@ -4,7 +4,7 @@ from unittest.util import _MAX_LENGTH
 from django.conf import settings
 from django.db import models
 from django.forms import CharField
-
+User = settings.AUTH_USER_MODEL
 
 class Product(models.Model):
     for_rent='for_rent'
@@ -37,6 +37,7 @@ class Product(models.Model):
     price = models.DecimalField(
         max_digits=9,
         decimal_places=00,
+        unique=True
        )
     whatfor = models.CharField(
         max_length=8,choices=for_choices, default=for_rent
@@ -52,6 +53,8 @@ class Product(models.Model):
         null=True
     )
     last_update = models.DateTimeField(auto_now=True)
+    dasdsa= models.BooleanField
+    owner = models.ForeignKey(User, related_name='Products', on_delete=models.CASCADE,null=True)
     def __str__(self) -> str:
         return self.title
 

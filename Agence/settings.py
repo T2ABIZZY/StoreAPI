@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'API',
     'core',
-    'djoser'
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'Agence.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'data',
+        'NAME': 'data5',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on

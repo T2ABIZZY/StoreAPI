@@ -23,9 +23,26 @@ class ProductViewSet(ModelViewSet):
     search_fields = ['title', 'description']
     ordering_fields = ['price', 'last_update']
 
+
     def get_serializer_context(self):
         return {'request': self.request}
 
+
+
+
+
+
+
+
+
+class ProductByOwnerViewSet(ModelViewSet):
+    serializer_class = Productserializer
+    filterset_class = ProductFilter
+    def get_queryset(self):
+        user = self.request.user.id
+        return Product.objects.filter(owner=user)
+    def get_serializer_context(self):
+        return {'request': self.request}
 
 
 
@@ -41,20 +58,20 @@ class ReviewViewSet(ModelViewSet):
         return {'product_id': self.kwargs['product_pk']}
 
 
-class CustomerViewSet(ModelViewSet):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-    permission_classes = [DjangoModelPermissions]
+# class CustomerViewSet(ModelViewSet):
+#     queryset = Customer.objects.all()
+#     serializer_class = CustomerSerializer
+#     permission_classes = [DjangoModelPermissions]
 
-    @action(detail=False,methods=['GET','PUT'])
-    def me(self, request):
-        (customer, created) = Customer.objects.get_or_create(
-            user_id=request.user.id)
-        if request.method == 'GET':
-            serializer = CustomerSerializer(customer)
-            return Response(serializer.data)
-        elif request.method == 'PUT':
-            serializer = CustomerSerializer(customer, data=request.data)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            return Response(serializer.data)
+#     @action(detail=False,methods=['GET','PUT'])
+#     def me(self, request):
+#         (customer, created) = Customer.objects.get_or_create(
+#             user_id=request.user.id)
+#         if request.method == 'GET':
+#             serializer = CustomerSerializer(customer)
+#             return Response(serializer.data)
+#         elif request.method == 'PUT':
+#             serializer = CustomerSerializer(customer, data=request.data)
+#             serializer.is_valid(raise_exception=True)
+#             serializer.save()
+#             return Response(serializer.data)
