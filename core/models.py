@@ -5,4 +5,4 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     email=models.EmailField(unique=True)
-    phone = models.DecimalField(max_digits=9,decimal_places=0,null=True)
+    account_type=models.CharField(max_length=255)

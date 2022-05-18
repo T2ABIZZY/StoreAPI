@@ -53,7 +53,11 @@ class Product(models.Model):
         null=True
     )
     last_update = models.DateTimeField(auto_now=True)
-    dasdsa= models.BooleanField
+    Location = models.CharField(max_length=255,blank=True)
+    Lat = models.DecimalField(
+        max_digits=25, decimal_places=20,)
+    Long = models.DecimalField(
+        max_digits=25, decimal_places=20)   
     owner = models.ForeignKey(User, related_name='Products', on_delete=models.CASCADE,null=True)
     def __str__(self) -> str:
         return self.title
@@ -67,13 +71,14 @@ class Review(models.Model):
     description = models.TextField()
     date = models.DateField(auto_now_add=True)
 
-class Customer(models.Model):
-    phone = models.DecimalField(max_digits=9,decimal_places=0,null=True)
-    State = models.CharField(max_length=20) 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    def __str__(self) :
-        return f'{self.user.first_name},{self.user.last_name}'
 class likedposts(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='likedposts')
     userid = models.DecimalField(max_digits=9,decimal_places=0)
     likedpostsid= models.DecimalField(max_digits=9,decimal_places=0)
+
+class UserProfile(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile")
+    date_joined=models.DateTimeField(auto_now_add=True)
+    updated_on=models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.user.username
