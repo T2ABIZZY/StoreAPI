@@ -21,7 +21,24 @@ class Productserializer(serializers.ModelSerializer) :
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['id', 'date', 'name', 'description']
+        fields = ['id', 'date', 'description','owner_id']
+        extra_kwargs = {"user":{"read_only":True}}
+    def validate(self, attrs):
+        attrs['owner'] = self.context.get("request").user
+        return attrs   
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def create(self, validated_data):
         product_id = self.context['product_id']
