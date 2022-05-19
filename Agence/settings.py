@@ -146,9 +146,11 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=365)
 }
 DJOSER = {
+    'HIDE_USERS': False,
     'PERMISSIONS': {
-        'user': ['rest_framework.permissions.IsAuthenticated'],
-        'user_list': ['rest_framework.permissions.IsAuthenticated'],
+
+    'user': ['rest_framework.permissions.IsAuthenticated'],
+    'user_list': ['rest_framework.permissions.AllowAny'],
     },
     'SERIALIZERS': {
         'user_create': 'core.serializers.UserCreateSerializer',
