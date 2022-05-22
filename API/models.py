@@ -7,28 +7,28 @@ from django.forms import CharField
 User = settings.AUTH_USER_MODEL
 
 class Product(models.Model):
-    for_rent='for_rent'
-    for_sale='for_sale'
-    for_choices = [
-        (for_rent,'for rent'),
-        (for_sale,'for sale'),
+    RENT=0
+    SALE=1
+    PURPOSES = [
+        (RENT,'for rent'),
+        (SALE,'for sale'),
     ]
-    appartement = 'Appartement'
-    house = 'House'
-    industrial = 'Industrial'
-    commercial = 'Commercial'
-    Land = 'Land'
-    categories_CHOICES = [
-        (appartement, 'appartement'),
-        (house, 'house'),
-        (industrial, 'industrial'),
-        (commercial, 'commercial'),
-        (Land, 'Land'),
+    
+    APPARTMENT = 0
+    HOUSE = 1
+    INDUSTRIAL = 2
+    COMMERCIAL = 3
+    LAND = 4
+    CATEGORIES = [
+        (APPARTMENT, 'Appartement'),
+        (HOUSE, 'House'),
+        (INDUSTRIAL, 'Industrial'),
+        (COMMERCIAL, 'Commercial'),
+        (LAND, 'Land'),
     ]
-    categories = models.CharField(
-        max_length=11,
-        choices=categories_CHOICES,
-        default=appartement,
+    category = models.IntegerField(
+        choices=CATEGORIES,
+        default=APPARTMENT,
     )
 
     title = models.CharField(max_length=255)
@@ -39,8 +39,9 @@ class Product(models.Model):
         decimal_places=00,
         unique=True
        )
-    whatfor = models.CharField(
-        max_length=8,choices=for_choices, default=for_rent
+    purpose = models.IntegerField(
+        choices=PURPOSES, 
+        default=RENT
     )
     size = models.DecimalField(
         max_digits=6,
@@ -59,14 +60,18 @@ class Product(models.Model):
     Long = models.DecimalField(
         max_digits=25, decimal_places=20)   
     owner = models.ForeignKey(User, related_name='Products', on_delete=models.CASCADE,null=True)
-    image = models.ImageField(upload_to='API/images',max_length=100)
-
+    
     def __str__(self) -> str:
         return self.title
 
     class Meta:
         ordering = ['title']
 
+
+class ProductImages(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images", null=False)
+    image = models.ImageField(upload_to='API/images',max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Review(models.Model):
