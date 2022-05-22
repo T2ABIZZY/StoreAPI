@@ -48,7 +48,7 @@ class Product(models.Model):
         null=True
     )
     rooms = models.DecimalField(
-        max_digits=1,
+        max_digits=2,
         decimal_places=0,
         null=True
     )
@@ -59,22 +59,21 @@ class Product(models.Model):
     Long = models.DecimalField(
         max_digits=25, decimal_places=20)   
     owner = models.ForeignKey(User, related_name='Products', on_delete=models.CASCADE,null=True)
+    image = models.ImageField(upload_to='API/images',max_length=100)
+
     def __str__(self) -> str:
         return self.title
 
     class Meta:
         ordering = ['title']
 
+
+
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     owner = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE,null=True)
     description = models.TextField()
     date = models.DateField(auto_now_add=True)
-
-class likedposts(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='likedposts')
-    userid = models.DecimalField(max_digits=9,decimal_places=0)
-    likedpostsid= models.DecimalField(max_digits=9,decimal_places=0)
 
 class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile")
