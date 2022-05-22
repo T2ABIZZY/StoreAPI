@@ -14,7 +14,11 @@ class UserSerializer(BaseUserSerializer):
 class CurrentUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+<<<<<<< HEAD
         fields = ('username', 'email', 'id','first_name','last_name','account_type','avatar')
+=======
+        fields = ('username', 'email', 'id','first_name','password','last_name','account_type')
+>>>>>>> cc47b94d3f660c9aeea1705b3ce4499e5c1652cf
 
 class userProfileSerializer(serializers.ModelSerializer):
     user=CurrentUserSerializer(read_only=True)
