@@ -58,3 +58,4 @@ class ReviewViewSet(ModelViewSet):
         return {'product_id': self.kwargs['product_pk'],
         'request': self.request
         }
+

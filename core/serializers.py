@@ -5,20 +5,16 @@ from rest_framework import serializers
 
 class UserCreateSerializer(BaseUserCreateSerializer):
     class Meta(BaseUserCreateSerializer.Meta):
-        fields=['id','account_type','username','email','password','first_name','last_name','avatar']
+        fields=['id','account_type','username','email','password','first_name','last_name']
 
 class UserSerializer(BaseUserSerializer):
     class Meta(BaseUserSerializer.Meta):
-        fields=['id','account_type','username','email','password','first_name','last_name','avatar']
+        fields=['id','account_type','username','email','password','first_name','last_name']
 
 class CurrentUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-<<<<<<< HEAD
-        fields = ('username', 'email', 'id','first_name','last_name','account_type','avatar')
-=======
         fields = ('username', 'email', 'id','first_name','password','last_name','account_type')
->>>>>>> cc47b94d3f660c9aeea1705b3ce4499e5c1652cf
 
 class userProfileSerializer(serializers.ModelSerializer):
     user=CurrentUserSerializer(read_only=True)
