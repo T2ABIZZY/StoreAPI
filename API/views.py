@@ -24,6 +24,7 @@ class AddProduct(APIView):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
 class ViewProducts(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
