@@ -9,19 +9,29 @@ from rest_framework.decorators import action
 from rest_framework import status
 from .filters import ProductFilter
 from .models import  Product, Review
-from .serializers import  Productserializer, ReviewSerializer
+from .serializers import  ProductSerializer, ReviewSerializer
 from rest_framework.mixins import CreateModelMixin, DestroyModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.permissions import AllowAny, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly, IsAdminUser, IsAuthenticated
 from .permissions import Agencepermission
 
+from rest_framework.views import APIView
 
-class ProductViewSet(ModelViewSet):
+class AddProduct(APIView):
+
+    def post(self, request):
+        serializer = ProductSerializer(data=request.data, context={"user":request.user})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class ViewProducts(ModelViewSet):
     queryset = Product.objects.all()
-    serializer_class = Productserializer
+    serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = ProductFilter
     search_fields = ['title', 'description']
     ordering_fields = ['price', 'last_update']
+
 
 
     # def get_serializer_context(self):
