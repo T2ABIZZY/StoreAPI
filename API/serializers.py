@@ -11,7 +11,7 @@ class Productserializer(serializers.ModelSerializer) :
     # phone = serializers.DecimalField(source="owner.phone",read_only=True,decimal_places=0,max_digits=10)
     class Meta:
         model = Product
-        fields = ('id','title','price','description','whatfor','categories','size','rooms','Location','Lat','Long','owner_id')
+        fields = ('id','title','price','description','whatfor','categories','size','rooms','Location','Lat','Long','owner_id','image')
         extra_kwargs = {"user":{"read_only":True}}
         
     def validate(self, attrs):
