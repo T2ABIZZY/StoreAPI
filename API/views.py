@@ -8,11 +8,12 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.decorators import action
 from rest_framework import status
 from .filters import ProductFilter
-from .models import  Product, Review
-from .serializers import  Productserializer, ReviewSerializer
+from .models import  Bookmark, Product, Review,ProductImages
+from .serializers import  BookmarkSerializer, Productserializer, ReviewSerializer
 from rest_framework.mixins import CreateModelMixin, DestroyModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.permissions import AllowAny, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly, IsAdminUser, IsAuthenticated
 from .permissions import Agencepermission
+from rest_framework import generics
 
 
 class ProductViewSet(ModelViewSet):
@@ -22,10 +23,25 @@ class ProductViewSet(ModelViewSet):
     filterset_class = ProductFilter
     search_fields = ['title', 'description']
     ordering_fields = ['price', 'last_update']
+    def get_serializer_context(self):
+        return {'request': self.request}
 
 
-    # def get_serializer_context(self):
-    #     return {'request': self.request}
+
+
+
+
+
+
+
+
+
+    # def create(self, validated_data):
+    #      images_data = self.context['request'].FILES
+    #      Product = Product.objects.create
+    #      for image_data in images_data.getlist('file'):
+    #          ProductImages.objects.create(Product=Product, image=image_data)
+
 
 
 
@@ -59,3 +75,8 @@ class ReviewViewSet(ModelViewSet):
         'request': self.request
         }
 
+
+class RecipeBookmarkView(ModelViewSet):
+    serializer_class = BookmarkSerializer
+    def get_queryset(self):
+        return Bookmark.objects.filter(bookmarked_by=self.request.user)

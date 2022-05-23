@@ -1,4 +1,5 @@
 from email.policy import default
+from itertools import product
 from random import choices
 from unittest.util import _MAX_LENGTH
 from django.conf import settings
@@ -59,13 +60,16 @@ class Product(models.Model):
     Long = models.DecimalField(
         max_digits=25, decimal_places=20)   
     owner = models.ForeignKey(User, related_name='Products', on_delete=models.CASCADE,null=True)
-    image = models.ImageField(upload_to='API/images',max_length=100)
-
+    pic = models.FileField(upload_to='API/images',max_length=100,null=True)
     def __str__(self) -> str:
         return self.title
 
     class Meta:
         ordering = ['title']
+
+class ProductImages(models.Model):
+      product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+      images = models.FileField(upload_to='API/images',max_length=100,null=True)
 
 
 
@@ -81,3 +85,8 @@ class UserProfile(models.Model):
     updated_on=models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.user.username
+
+class Bookmark(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='bookmark')
+    bookmarked_by = models.ForeignKey(User, related_name='bookmark', on_delete=models.CASCADE,null=True)
+    bookmarked_at = models.DateTimeField(auto_now_add=True)

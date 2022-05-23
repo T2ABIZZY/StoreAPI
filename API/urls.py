@@ -11,6 +11,11 @@ router.register('productsbyowner', views.ProductByOwnerViewSet, basename='produc
 
 products_router = routers.NestedDefaultRouter(router, 'products', lookup='product')
 products_router.register('reviews', views.ReviewViewSet, basename='product-reviews')
+products_router.register('bookmark', views.RecipeBookmarkView, basename='product-bookmark')
 
 # URLConf
 urlpatterns = router.urls + products_router.urls
+# urlpatterns = [
+#     path('', include(router.urls)),
+#     path("/bookmarks/", views.RecipeBookmarkView.as_view()),
+# ]
