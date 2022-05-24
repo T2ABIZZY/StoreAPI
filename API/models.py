@@ -60,7 +60,6 @@ class Product(models.Model):
     Long = models.DecimalField(
         max_digits=25, decimal_places=20)   
     owner = models.ForeignKey(User, related_name='Products', on_delete=models.CASCADE,null=True)
-    pic = models.FileField(upload_to='API/images',max_length=100,null=True)
     def __str__(self) -> str:
         return self.title
 
