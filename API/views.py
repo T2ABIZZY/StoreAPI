@@ -7,20 +7,20 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.decorators import action
 from rest_framework import status
-from .filters import ProductFilter
-from .models import  Bookmark, Product, Review,ProductImages
-from .serializers import  BookmarkSerializer, Productserializer, ReviewSerializer
+from .filters import OfferFilter
+from .models import  Bookmark, Offer, Comment
+from .serializers import  BookmarkSerializer, offerserializer, CommentSerializer
 from rest_framework.mixins import CreateModelMixin, DestroyModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.permissions import AllowAny, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly, IsAdminUser, IsAuthenticated
 from .permissions import Agencepermission
 from rest_framework import generics
 
 
-class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.all()
-    serializer_class = Productserializer
+class offerViewSet(ModelViewSet):
+    queryset = Offer.objects.all()
+    serializer_class = offerserializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_class = ProductFilter
+    filterset_class = OfferFilter
     search_fields = ['title', 'description']
     ordering_fields = ['price', 'last_update']
     def get_serializer_context(self):
@@ -38,9 +38,9 @@ class ProductViewSet(ModelViewSet):
 
     # def create(self, validated_data):
     #      images_data = self.context['request'].FILES
-    #      Product = Product.objects.create
+    #      offer = offer.objects.create
     #      for image_data in images_data.getlist('file'):
-    #          ProductImages.objects.create(Product=Product, image=image_data)
+    #          offerImages.objects.create(offer=offer, image=image_data)
 
 
 
@@ -51,12 +51,12 @@ class ProductViewSet(ModelViewSet):
 
 
 
-class ProductByOwnerViewSet(ModelViewSet):
-    serializer_class = Productserializer
-    filterset_class = ProductFilter
+class offerByOwnerViewSet(ModelViewSet):
+    serializer_class = offerserializer
+    filterset_class = OfferFilter
     def get_queryset(self):
         user = self.request.user.id
-        return Product.objects.filter(owner=user)
+        return Offer.objects.filter(owner=user)
     def get_serializer_context(self):
         return {'request': self.request}
 
@@ -64,14 +64,14 @@ class ProductByOwnerViewSet(ModelViewSet):
 
 
 
-class ReviewViewSet(ModelViewSet):
-    serializer_class = ReviewSerializer
+class CommentViewSet(ModelViewSet):
+    serializer_class = CommentSerializer
 
     def get_queryset(self):
-        return Review.objects.filter(product_id=self.kwargs['product_pk'])
+        return Comment.objects.filter(Offer_id=self.kwargs['offer_pk'])
 
     def get_serializer_context(self):
-        return {'product_id': self.kwargs['product_pk'],
+        return {'Offer_id': self.kwargs['offer_pk'],
         'request': self.request
         }
 
@@ -80,3 +80,5 @@ class RecipeBookmarkView(ModelViewSet):
     serializer_class = BookmarkSerializer
     def get_queryset(self):
         return Bookmark.objects.filter(bookmarked_by=self.request.user)
+    def get_serializer_context(self):
+        return {'request': self.request}

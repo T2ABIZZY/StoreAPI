@@ -1,13 +1,11 @@
-from email.policy import default
-from itertools import product
-from random import choices
+
 from unittest.util import _MAX_LENGTH
 from django.conf import settings
 from django.db import models
 from django.forms import CharField
 User = settings.AUTH_USER_MODEL
 
-class Product(models.Model):
+class Offer(models.Model):
     for_rent='for_rent'
     for_sale='for_sale'
     for_choices = [
@@ -59,21 +57,21 @@ class Product(models.Model):
         max_digits=25, decimal_places=20,)
     Long = models.DecimalField(
         max_digits=25, decimal_places=20)   
-    owner = models.ForeignKey(User, related_name='Products', on_delete=models.CASCADE,null=True)
+    owner = models.ForeignKey(User, related_name='Offers', on_delete=models.CASCADE,null=True)
     def __str__(self) -> str:
         return self.title
 
     class Meta:
         ordering = ['title']
 
-class ProductImages(models.Model):
-      product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+class OfferImages(models.Model):
+      Offer = models.ForeignKey(Offer, on_delete=models.CASCADE, related_name='images')
       images = models.FileField(upload_to='API/images',max_length=100,null=True)
 
 
 
-class Review(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+class Comment(models.Model):
+    Offer = models.ForeignKey(Offer, on_delete=models.CASCADE, related_name='comments')
     owner = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE,null=True)
     description = models.TextField()
     date = models.DateField(auto_now_add=True)
@@ -86,6 +84,6 @@ class UserProfile(models.Model):
         return self.user.username
 
 class Bookmark(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='bookmark')
+    Offer = models.ForeignKey(Offer, on_delete=models.CASCADE, related_name='bookmark')
     bookmarked_by = models.ForeignKey(User, related_name='bookmark', on_delete=models.CASCADE,null=True)
     bookmarked_at = models.DateTimeField(auto_now_add=True)

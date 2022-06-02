@@ -1,9 +1,9 @@
 from django_filters.rest_framework import FilterSet
-from .models import Product
+from .models import Offer
 
-class ProductFilter(FilterSet):
+class OfferFilter(FilterSet):
     class Meta:
-        model = Product
+        model = Offer
         fields = {
             'price': ['lt','gt'],
             'categories': ['exact'],

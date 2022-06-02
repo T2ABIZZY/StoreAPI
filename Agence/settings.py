@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'API',
     'core',
     'djoser',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +86,7 @@ WSGI_APPLICATION = 'Agence.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'data11',
+        'NAME': 'data12',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
@@ -161,4 +162,9 @@ DJOSER = {
         'user': 'core.serializers.CurrentUserSerializer',
 
     }
+}
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
 }

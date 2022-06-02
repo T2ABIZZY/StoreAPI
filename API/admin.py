@@ -1,6 +1,3 @@
-from argparse import Action
-from inspect import Parameter
-from itertools import product
 from turtle import title
 from django.urls import reverse
 from django.contrib import admin
@@ -38,7 +35,7 @@ class roomsfilter(admin.SimpleListFilter):
 
 
 
-@admin.register(models.Product)
+@admin.register(models.Offer)
 class ProdcutAdmin(admin.ModelAdmin) :
     actions = ['clear_price']
     list_display = ['title','price']
@@ -53,5 +50,5 @@ class ProdcutAdmin(admin.ModelAdmin) :
         updated_count = queryset.update(price=0)
         self.message_user(
             request,
-            f'{updated_count} products were successfully updated.'
+            f'{updated_count} offers were successfully updated.'
         )

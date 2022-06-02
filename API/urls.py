@@ -4,17 +4,19 @@ from rest_framework_nested import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register('products', views.ProductViewSet, basename='products')
-router.register('productsbyowner', views.ProductByOwnerViewSet, basename='productsbyowner')
+router.register('offers', views.offerViewSet, basename='offers')
+router.register('offersbyowner', views.offerByOwnerViewSet, basename='offersbyowner')
 
 # router.register('customers', views.CustomerViewSet)
 
-products_router = routers.NestedDefaultRouter(router, 'products', lookup='product')
-products_router.register('reviews', views.ReviewViewSet, basename='product-reviews')
-products_router.register('bookmark', views.RecipeBookmarkView, basename='product-bookmark')
+offers_router = routers.NestedDefaultRouter(router, 'offers', lookup='offer')
+offers_router.register('comments', views.CommentViewSet, basename='offer-comments')
+# offers_router.register('bookmark', views.RecipeBookmarkView, basename='offer-bookmark')
+router.register('bookmark', views.RecipeBookmarkView, basename='offer-bookmark')
+
 
 # URLConf
-urlpatterns = router.urls + products_router.urls
+urlpatterns = router.urls + offers_router.urls
 # urlpatterns = [
 #     path('', include(router.urls)),
 #     path("/bookmarks/", views.RecipeBookmarkView.as_view()),
