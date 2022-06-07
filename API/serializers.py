@@ -43,28 +43,12 @@ class CommentSerializer(serializers.ModelSerializer):
         Offer_id = self.context['Offer_id']
         return Comment.objects.create(Offer_id=Offer_id, **validated_data)
 
-# class UserSerializer(serializers.ModelSerializer):
-#         class Meta:
-#             model = User
-#             fields = ["username", "email", "date_joined"]
-
 class BookmarkSerializer(serializers.ModelSerializer):
     title = serializers.EmailField(source="offer.title",read_only=True)
     class Meta:
         model = Bookmark
         fields = ["id","Offer", "bookmarked_by", "bookmarked_at","title"]
         extra_kwargs = {"user":{"read_only":True}}
-        def validate(self, attrs):
-            attrs['bookmarked_by'] = self.context.get("request").user
-            return attrs            
-
-        # def create(self, validated_data):
-        #     request = self.context["request"]
-        #     ModelClass = self.Meta.model
-
-        #     instance = ModelClass.objects.create(
-        #         **validated_data, **{"bookmarked_by": request.user}
-        #     )
-        #     return instance
-   
-
+    def validate(self, attrs):
+        attrs['bookmarked_by'] = self.context.get("request").user
+        return attrs            
