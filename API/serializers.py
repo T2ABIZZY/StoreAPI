@@ -1,6 +1,3 @@
-from dataclasses import fields
-from decimal import Decimal
-from pyexpat import model
 from rest_framework import serializers
 from .models import Offer, Comment,OfferImages,Bookmark
 

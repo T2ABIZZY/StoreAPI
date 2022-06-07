@@ -1,0 +1,17 @@
+\chapter*{\color{blue}Bibliographie:}
+\addcontentsline{toc}{chapter}{Bibliographie}
+\newpage
+\textbf{[1] }Flutter Docs: \url{https://docs.flutter.dev/resources/architectural-overview}\\
+\textbf{[2] }GEEKSFORGEEKS : \url{https://www.geeksforgeeks.org/django-project-mvt-structure/}\\
+\textbf{[3] }Educative : \url{https://www.educative.io/edpresso/what-is-mysql-architecture}\\
+\textbf{[4] }Freecodecamp : \url{ https://www.freecodecamp.org/news/what-is-flutter-and-why-you-should-learn-it-in-2020/}\\
+\textbf{[5] }javatpoint : \url{ https://www.javatpoint.com/flutter-dart-programming}\\
+\textbf{[5] }Coursera : \url{ https://www.coursera.org/articles/what-is-python-used-for-a-beginners-guide-to-using-python}\\
+\textbf{[5] }Talned : \url{ https://www.talend.com/resources/what-is-mysql/}\\
+\textbf{[5] }MOzilla Docs : \url{ https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Introduction}\\
+\textbf{[5] }Javapoint : \url{ https://www.javatpoint.com/android-studio}\\
+\textbf{[5] }jetbrains : \url{ https://www.jetbrains.com/help/datagrip/meet-the-product.html}\\
+
+
+
+

@@ -85,14 +85,10 @@ WSGI_APPLICATION = 'Agence.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'data12',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 
 # Password validation
@@ -162,9 +158,4 @@ DJOSER = {
         'user': 'core.serializers.CurrentUserSerializer',
 
     }
-}
-
-GRAPH_MODELS = {
-  'all_applications': True,
-  'group_models': True,
 }

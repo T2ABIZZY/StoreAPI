@@ -32,11 +32,10 @@ class Offer(models.Model):
 
     title = models.CharField(max_length=255)
     slug = models.SlugField()
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField( blank=True)
     price = models.DecimalField(
         max_digits=9,
         decimal_places=00,
-        unique=True
        )
     whatfor = models.CharField(
         max_length=8,choices=for_choices, default=for_rent
@@ -44,12 +43,10 @@ class Offer(models.Model):
     size = models.DecimalField(
         max_digits=6,
         decimal_places=0,
-        null=True
     )
     rooms = models.DecimalField(
         max_digits=2,
         decimal_places=0,
-        null=True
     )
     last_update = models.DateTimeField(auto_now=True)
     Location = models.CharField(max_length=255,blank=True)
@@ -57,7 +54,7 @@ class Offer(models.Model):
         max_digits=25, decimal_places=20,)
     Long = models.DecimalField(
         max_digits=25, decimal_places=20)   
-    owner = models.ForeignKey(User, related_name='Offers', on_delete=models.CASCADE,null=True)
+    owner = models.ForeignKey(User, related_name='Offers', on_delete=models.CASCADE)
     def __str__(self) -> str:
         return self.title
 
