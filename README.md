@@ -2,6 +2,29 @@ This is a rest api for renting and selling houses
 <h1 >
 Installition
 </h1>
+1-SETTING UP THE PROJECT:
+after downloading the .rar file extract it wherever you want then open this folder with ur editor
+2-SETTING UP THE DATABASE:
+after creating a new MySQL database
+go to Agence/settings
+then go to DATABASES
+and change the USER to the username of SQL and the PASSWORD to the password of MYSQL and the name to the name of the database you created
+3-INSTALLING DJANGO AND THE REQUIRED FRAMEWORKS:
+check if you already installed python then install Django and these frameworks
+python -m pip install Django
+python -m pip install Djoser
+pip install -U djangorestframework_simplejwt
+pip install django-filter
+pip install drf-nested-routers
+pip install djangorestframework
+4-MIGRITIONS
+in the terminal of the project type "python manage.py makemigrations"then "python manage.py migrate"
+5-RUN THE SERVER:
+in the terminal of the project type "python manage.py runserver"
+then you should access the server by this URL 
+http://127.0.0.1:8000/
+
+
 
 
 <h1 >
