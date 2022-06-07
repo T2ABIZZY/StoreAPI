@@ -1,8 +1,5 @@
-from django.db.models.aggregates import Count
-from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.decorators import action
 
@@ -21,25 +18,6 @@ class offerViewSet(ModelViewSet):
     ordering_fields = ['price', 'last_update']
     def get_serializer_context(self):
         return {'request': self.request}
-
-
-
-
-
-
-
-
-
-
-
-    # def create(self, validated_data):
-    #      images_data = self.context['request'].FILES
-    #      offer = offer.objects.create
-    #      for image_data in images_data.getlist('file'):
-    #          offerImages.objects.create(offer=offer, image=image_data)
-
-
-
 
 
 
