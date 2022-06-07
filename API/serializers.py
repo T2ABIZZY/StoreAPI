@@ -52,7 +52,7 @@ class BookmarkSerializer(serializers.ModelSerializer):
     title = serializers.EmailField(source="offer.title",read_only=True)
     class Meta:
         model = Bookmark
-        fields = ["id","offer", "bookmarked_by", "bookmarked_at","title"]
+        fields = ["id","Offer", "bookmarked_by", "bookmarked_at","title"]
         extra_kwargs = {"user":{"read_only":True}}
         def validate(self, attrs):
             attrs['bookmarked_by'] = self.context.get("request").user
