@@ -8,4 +8,5 @@ class OfferFilter(FilterSet):
             'price': ['lt','gt'],
             'categories': ['exact'],
             'whatfor': ['exact'],
+            'rooms': ['exact'],
         }
