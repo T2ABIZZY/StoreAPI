@@ -17,6 +17,7 @@ pip install -U djangorestframework_simplejwt
 pip install django-filter
 pip install drf-nested-routers
 pip install djangorestframework
+pip install Pillow
 4-MIGRITIONS
 in the terminal of the project type "python manage.py makemigrations"then "python manage.py migrate"
 5-RUN THE SERVER:
